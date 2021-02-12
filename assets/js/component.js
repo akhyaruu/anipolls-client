@@ -29,7 +29,6 @@ class SubsBerita extends HTMLElement {
    }
 }
 
-
 class Footer extends HTMLElement {
    connectedCallback() {
      this.innerHTML = `  
@@ -40,7 +39,7 @@ class Footer extends HTMLElement {
                   <div class="col-md-4 col-12">
                      <div class="f-about single-footer">
                         <div class="logo">
-                           <a href="index.html"><img src="img/logo1.png"></a>
+                           <a href="index.html"><img src="../img/logo1.png"></a>
                         </div>
                         <p>Anipolls merupakan website polling anime berbahasa indonesia yang berfungsi sebagai wadah
                            bagi kamu untuk menampung segala aspirasi dalam dunia per-animean.</p>
