@@ -80,76 +80,42 @@
    </header>
 
    <section class="bg-light">
-      <div class="container mt-5 mb-5">
-         <div id="listBerita1" class="row">
-            <h3 class="mb-4">Berita Terbaru</h3>
-
-
-            <!-- <div class="col-md-4">
-               <div class="card shadow-sm">
-                  <img src="assets/img/img1.jpg" class="card-img-top">
-                  <div class="card-body">
-                     <a href="">
-                        <h4>The Detective Is Already Dead Anime Gets Second Key Visual</h4>
-                     </a>
-                     <div>
-                        <small class="text-primary">Ilham Akhyar</small> • <small>2 Januari 2020</small></p>
-                     </div>
-                     <p class="card-text mt-3">The Detective Is Already Dead anime has received a second key visual,
-                        which depicts main characters Kimihiko Kimizuka and Nagisa Natsunagi</p>
+      <div class="row px-5 py-5">
+         <div class="col-md-8 col-12">
+            <div class="container px-5 bg-white border border-2 rounded">
+               <div class="pt-5">
+                  <h3 id="headingBerita" class="text-center mb-4"></h3>
+                  <img id="posterBerita" src="" class="rounded">
+               </div>
+               <div>
+                  <div class="mt-2">
+                     <p>Oleh: <b>Ilham Akhyar</b> • <small id="textTanggal"></small></p>
                   </div>
+                  <div id="berita" class="mt-5 pb-5"></div>
                </div>
             </div>
-            <div class="col-md-4">
-               <div class="card shadow-sm">
-                  <img src="assets/img/img2.jpg" class="card-img-top">
-                  <div class="card-body">
-                     <a href="">
-                        <h4>The Detective Is Already Dead Anime Gets Second Key Visual</h4>
-                     </a>
-                     <div>
-                        <small class="text-primary">Ilham Akhyar</small> • <small>2 Januari 2020</small></p>
+         </div>
+         <div class="col-md-4 col-12">
+            <div class="container bg-white border border-2 rounded">
+               <div id="listBerita" class="py-4">
+                  <h5>Next posts</h5>
+                  <hr>
+                  <!-- <div class="row mt-3">
+                     <div class="col-md-4">
+                        <img src="assets/img/senko2.jpg" alt="">
                      </div>
-                     <p class="card-text mt-3">The Detective Is Already Dead anime has received a second key visual,
-                        which depicts main characters Kimihiko Kimizuka and Nagisa Natsunagi</p>
-                  </div>
+                     <div class="col-md-8">
+                        <h6>Azurlane get a new season anime</h6>
+                        <small>23 Januari 2021</small>
+                     </div>
+                  </div> -->
+
+
+
+
                </div>
             </div>
-            <div class="col-md-4">
-               <div class="card shadow-sm">
-                  <img src="assets/img/img1.jpg" class="card-img-top">
-                  <div class="card-body">
-                     <a href="">
-                        <h4>The Detective Is Already Dead Anime Gets Second Key Visual</h4>
-                     </a>
-                     <div>
-                        <small class="text-primary">Ilham Akhyar</small> • <small>2 Januari 2020</small></p>
-                     </div>
-                     <p class="card-text mt-3">The Detective Is Already Dead anime has received a second key visual,
-                        which depicts main characters Kimihiko Kimizuka and Nagisa Natsunagi</p>
-                  </div>
-               </div>
-            </div> -->
-
-
          </div>
-         <div id="listBerita2" class="row">
-            <!-- <div class="col-md-4">
-               <div class="row mt-5">
-                  <div class="col-md-5">
-                     <img src="assets/img/img1.jpg">
-                  </div>
-                  <div class="col-md-7">
-                     <a href="" class="fw-bold">Tokyo Mew Mew Mew Anime Gets 2022 Release Date, Teaser Visual</a>
-                     <small>February 22, 2021</small>
-                  </div>
-               </div>
-            </div> -->
-
-
-         </div>
-
-
       </div>
    </section>
 
@@ -171,51 +137,15 @@
 
    <script>
       $(document).ready(function () {
-         axios.get('http://127.0.0.1:8000/api/getall-berita')
+         const params = new URLSearchParams(window.location.search);
+         const idBerita = params.get('berita');
+         axios.get(`http://127.0.0.1:8000/api/get-berita/${idBerita}`)
             .then(function (response) {
-               const arr = response.data.berita;
-               const thirdPosts = arr.slice(0, 3);
-               const restPosts = arr.slice(3, arr.length);
-               let output1 = '';
-               let output2 = '';
-               thirdPosts.map(data => {
-                  let isi = data.isi;
-                  let deskripsi = isi.substr(0, 150);
-                  console.log(deskripsi);
-                  output1 += `
-                  <div class="col-md-4">
-                     <div class="card shadow-sm">
-                        <img src="http://127.0.0.1:8000/storage/berita/${data.gambar}" class="card-img-top">
-                        <div class="card-body">
-                           <a href="detail-berita.html?berita=${data.id}">
-                              <h4>${data.judul}</h4>
-                           </a>
-                           <div>
-                              <small class="text-primary">Ilham Akhyar</small> • <small>${data.created_at}</small></p>
-                           </div>
-                           <p class="card-text mt-3">${deskripsi}...</p>
-                        </div>
-                     </div>
-                  </div>`;
-               });
-
-               restPosts.map(data => {
-                  output2 += `
-                  <div class="col-md-4">
-                     <div class="row mt-5">
-                        <div class="col-md-5">
-                           <img src="http://127.0.0.1:8000/storage/berita/${data.gambar}">
-                        </div>
-                        <div class="col-md-7">
-                           <a href="detail-berita.html?berita=${data.id}" class="fw-bold">${data.judul}</a>
-                           <small>${data.created_at}</small>
-                        </div>
-                     </div>
-                  </div>`;
-               });
-
-               $("#listBerita1").append(output1);
-               $("#listBerita2").append(output2);
+               $("#berita").append(response.data.berita.isi);
+               $("#headingBerita").text(response.data.berita.judul);
+               $("#textTanggal").text(response.data.berita.created_at);
+               $('#posterBerita').attr('src',
+                  `http://127.0.0.1:8000/storage/berita/${response.data.berita.gambar}`);
             })
             .catch(function (error) {
                Swal.fire({
@@ -225,8 +155,36 @@
                })
             })
 
+         axios.get('http://127.0.0.1:8000/api/getall-berita')
+            .then(function (response) {
+               const arr = response.data.berita;
+               const restPosts = arr.slice(idBerita, parseInt(idBerita) + 3);
+               let output = '';
+               restPosts.map(data => {
+                  output += `
+                  <div class="row mt-3">
+                     <div class="col-md-4">
+                        <img src="http://127.0.0.1:8000/storage/berita/${data.gambar}" alt="">
+                     </div>
+                     <div class="col-md-8">
+                        <h6>${data.judul}</h6>
+                        <small>${data.created_at}</small>
+                     </div>
+                  </div>`;
+               });
+               $('#listBerita').append(output);
+            })
+            .catch(function (error) {
+               Swal.fire({
+                  icon: 'error',
+                  title: 'Terjadi Kesalahan',
+                  text: `${error.message}`
+               })
+            });
+
       });
    </script>
+
 </body>
 
 </html>

@@ -82,9 +82,8 @@
       <div class="container ">
          <div class="row">
             <div class="col-12">
-               <div class="section-title">
+               <div id="sectionTitle" class="section-title">
                   <h3 class="mb-2">Top Anime</h3>
-                  <span>WINTER 2021 ANIME SEASON</span>
                </div>
             </div>
          </div>
@@ -130,7 +129,7 @@
 
    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
    <script src="assets/js/jquery.min.js"></script>
-   <script src="assets/js/bootstrap.bundle.min.js"></script>
+   <!-- <script src="assets/js/bootstrap.bundle.min.js"></script> -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
 
@@ -138,8 +137,6 @@
       $(document).ready(function () {
 
          const arrAnime = [];
-
-         $('#logoFooter').append('<a href="index.html"><img src="assets/img/logo1.png"></a>');
 
          // get anime
          axios.get('http://127.0.0.1:8000/api/get-anime')
@@ -151,7 +148,7 @@
                      <div class="col-md-4 mt-4">
                         <div class="row">
                            <div class="col-md-5">
-                              <img src="assets/img/poster1.jpg">
+                              <img src="http://127.0.0.1:8000/storage/${data.poster}">
                            </div>
                            <div class="col-md-7 mt-5">
                               <h3>${data.judul}</h3>
@@ -162,6 +159,8 @@
                      </div>`;
                });
                $('#rowAnime').append(output);
+               $('#sectionTitle').append(
+                  `<span>${response.data.season} ${response.data.tahun} Anime Season</span>`);
             })
             .catch(function (error) {
                Swal.fire({
